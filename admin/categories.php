@@ -1,5 +1,20 @@
 <?php include "includes/header.php" ?>
+<?php
 
+if (isset($_POST['submit'])) {
+    $category_name = mysqli_real_escape_string($conn,$_POST['cat_title']);
+    $query = "INSERT INTO categories (cat_title) VALUES ('$category_name')";
+    $query_result = mysqli_query($conn, $query);
+    if(!$query_result) {
+        die("Add Category Query Error". mysqli_error($conn));
+    }
+    else {
+        echo "Add to the DB corretly";
+    }
+}
+
+
+?>
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -22,11 +37,11 @@
                 <!-- Page Body -->
                 <div class="row">
                     <div class="col-md-4">
-                        <form action="">
+                        <form action="" method="post">
                             <h2>Add New Category</h2>
                             <div class="form-group">
                                 <label for="cat_title">Name</label>
-                                <input type="text" name="cat_title" class="form-control">
+                                <input type="text" name="cat_title" class="form-control" required="required">
                             </div>
                             <button type="submit" class="btn btn-primary" name="submit">Add Category</button>
                         </form>
