@@ -1,6 +1,7 @@
 <?php include "includes/header.php" ?>
 <?php
 
+//Add category
 if (isset($_POST['submit'])) {
     $category_name = mysqli_real_escape_string($conn,$_POST['cat_title']);
     $query = "INSERT INTO categories (cat_title) VALUES ('$category_name')";
@@ -60,15 +61,26 @@ if (isset($_POST['submit'])) {
                                 <tr>
                                     <th>Id</th>
                                     <th>Category Title</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
+                                    //Display categories
                                     while ( $row = mysqli_fetch_assoc($categories_result) ) {
                                         $catgory_id = $row['cat_id'];
                                         $catgory_title = $row['cat_title'];
                                         echo "<tr><td>$catgory_id</td>";
-                                        echo "<td>$catgory_title</td></tr>";
+                                        echo "<td>$catgory_title</td>";
+                                        echo "<td><a href='categories.php?delete=$catgory_id'>Delete</a></td></tr>";
+                                    }
+
+                                    //Delete category
+                                    if (isset($_GET['delete'])) {
+                                        $cat_to_delete = $_GET['delete'];
+                                        $query = "DELETE from categories WHERE cat_id = $catgory_id ";
+                                        $delete_query = mysqli_query($conn, $query);
+                                        header("Location: categories.php");
                                     }
                                 ?>
                             </tbody>
