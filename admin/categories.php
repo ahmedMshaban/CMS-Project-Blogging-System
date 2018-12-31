@@ -32,6 +32,14 @@
                         </form>
                     </div>
                     <div class="col-md-8 table-responsive">
+                        <?php
+                            $query = "SELECT * FROM categories";
+                            $categories_result = mysqli_query($conn ,$query);
+
+                            if($categories_result === FALSE) { 
+                                die("Faild to get catgories:". mysqli_error()); 
+                            }
+                        ?>
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -40,14 +48,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Test Category</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Test Category</td>
-                                </tr>
+                                <?php
+                                    while ( $row = mysqli_fetch_assoc($categories_result) ) {
+                                        $catgory_id = $row['cat_id'];
+                                        $catgory_title = $row['cat_title'];
+                                        echo "<tr><td>$catgory_id</td>";
+                                        echo "<td>$catgory_title</td></tr>";
+                                    }
+                                ?>
                             </tbody>
                         </table>
                     </div>
