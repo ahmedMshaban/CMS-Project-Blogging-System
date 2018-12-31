@@ -15,6 +15,22 @@ if (isset($_POST['submit'])) {
 }
 
 
+//Update category
+if (isset($_POST['update'])) {
+    $category_name = mysqli_real_escape_string($conn,$_POST['cat_title_update']);
+    $category_id = $_GET['updateId'];
+    $query = "UPDATE categories SET cat_title = '$category_name' WHERE cat_id = $category_id";
+    $update_qury = mysqli_query($conn, $query);
+
+    if(!$update_qury) {
+        die("update Category Query Error". mysqli_error($conn));
+    }
+    else {
+        header("Location: categories.php");
+    }
+}
+
+
 ?>
     <div id="wrapper">
 
@@ -46,6 +62,24 @@ if (isset($_POST['submit'])) {
                             </div>
                             <button type="submit" class="btn btn-primary" name="submit">Add Category</button>
                         </form>
+
+                        <?php
+                        if (isset($_GET['updateId'])) {
+
+                            $update_id = $_GET['updateId'];
+                            $update_name = $_GET['updateName'];?>
+                            <form action="" method="post">
+                                <h2>Update Category</h2>
+                                <div class="form-group">
+                                    <label for="cat_title_update">Name</label>
+                                    <input type="text" name="cat_title_update" class="form-control" value="<?php echo $update_name; ?>" required="required">
+                                </div>
+                                <button type="submit" class="btn btn-primary" name="update">Update Category</button>
+                            </form>
+
+                        <?php } ?>
+                                
+                            
                     </div>
                     <div class="col-md-8 table-responsive">
                         <?php
@@ -61,7 +95,7 @@ if (isset($_POST['submit'])) {
                                 <tr>
                                     <th>Id</th>
                                     <th>Category Title</th>
-                                    <th></th>
+                                    <th>Options</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,7 +106,7 @@ if (isset($_POST['submit'])) {
                                         $catgory_title = $row['cat_title'];
                                         echo "<tr><td>$catgory_id</td>";
                                         echo "<td>$catgory_title</td>";
-                                        echo "<td><a href='categories.php?delete=$catgory_id'>Delete</a></td></tr>";
+                                        echo "<td><a href='categories.php?delete=$catgory_id' class='preventDefault'>Delete | </a><a href='categories.php?updateId=$catgory_id&updateName=$catgory_title' class='preventDefault'>Update</a></td></tr>";
                                     }
 
                                     //Delete category
