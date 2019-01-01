@@ -34,7 +34,7 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#posts_admin_dropdown"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="posts_admin_dropdown" class="collapse">
                             <li>
-                                <a href="#">All Posts</a>
+                                <a href="./posts.php">All Posts</a>
                             </li>
                             <li>
                                 <a href="#">Add New</a>
