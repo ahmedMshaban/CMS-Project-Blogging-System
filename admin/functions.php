@@ -100,4 +100,48 @@ function activeUpdateCategory() {
 <?php
 }
 
+
+function getPostsTable() {
+    global $conn;
+    $query = "SELECT * FROM posts";
+    $select_posts = mysqli_query($conn ,$query);
+    if($select_posts === FALSE) { 
+        die("Faild to get catgories:". mysqli_error($conn)); 
+    }
+    else {
+        $postsInfo = array();
+        while ( $row = mysqli_fetch_assoc($select_posts) ) {
+            $postsInfo[] = $row;
+        }
+        return $postsInfo;
+    }
+}
+
+
+function displayPostsTable() {
+    $postsInfo = getPostsTable();
+    foreach ($postsInfo as $postInfo) {
+        $post_id = $postInfo['post_id'];
+        $post_author = $postInfo['post_author'];
+        $post_title = $postInfo['post_title'];
+        $post_category_id = $postInfo['post_category_id'];
+        $post_status = $postInfo['post_status'];
+        $post_image = $postInfo['post_image'];
+        $post_tags = $postInfo['post_tags'];
+        $post_comments_count = $postInfo['post_comments_count'];
+        $post_date = $postInfo['post_date'];
+        echo "<tr>";
+        echo "<td>$post_id</td>";
+        echo "<td>$post_author</td>";
+        echo "<td>$post_title</td>";
+        echo "<td>$post_category_id </td>";
+        echo "<td>$post_status</td>";
+        echo "<td><img src='../images/$post_image' class='img-responsive' width='100px' alt='post Image'></td>";
+        echo "<td>$post_tags</td>";
+        echo "<td>$post_comments_count</td>";
+        echo "<td>$post_date</td>";
+        echo "</tr>";
+    }
+}
+
 ?>

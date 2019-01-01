@@ -45,19 +45,8 @@ if (isset($_POST['update'])) {
                                     <th>Dates</th>
                                 </tr>
                             </thead>
-                                <tr>
-                                    <td>Id</td>
-                                    <td>Author</td>
-                                    <td>Title</td>
-                                    <td>Category</td>
-                                    <td>Status</td>
-                                    <td>Image</td>
-                                    <td>Tags</td>
-                                    <td>Comments</td>
-                                    <td>Dates</td>
-                                </tr>
                             <tbody>
-                                
+                                <?php displayPostsTable(); ?>
                             </tbody>
                         </table>
                     </div>
